@@ -1,0 +1,37 @@
+section{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.poster{
+  object-fit: cover;
+  height: 500px;
+  width: 350px;
+}
+body{
+  background-color: whitesmoke;
+}
+.card{
+  width: 350px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  margin: 10px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.add-movie{
+  display: flex;
+  flex-direction: column;
+}
+input{
+  width: 400px;
+  height: 25px;
+}
+button{
+  margin-top: 20px;
+  height: 30px;
+  width: 100px;
+}
+p,h1,h2{
+  padding-left: 30px;
+}
