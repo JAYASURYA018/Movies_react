@@ -1,16 +1,18 @@
-
-import { Redirect } from 'react-router-dom';
-import { Route } from 'react-router-dom';
-import { Switch } from 'react-router-dom';
+import { Switch, useHistory, Route, Redirect } from 'react-router-dom';
 import { useState } from 'react';
 import './App.css';
-import Home from './Home';
 import Movie from './Movie';
 import Movies from './Movies';
 import NotFound from './NotFound';
 import TicTacToe from './TicTacToe';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Flee from './Flee';
 
 function App() {
+
+  const history = useHistory();
 
   const initialMovies = [
     {
@@ -48,21 +50,32 @@ function App() {
 
   return (
     <>
+      <AppBar className='margin-zero' position="static">
+        <Toolbar className='spacearound'>
+          <Button color="inherit" onClick={() => { history.push("/") }}>Home</Button>
+          <Button color="inherit" onClick={() => { history.push("/movies") }}>Movies</Button>
+          <Button color="inherit" onClick={() => { history.push("/flames") }}>Flames</Button>
+          <Button color="inherit" onClick={() => { history.push("/tic-tac-toe") }}>Tic Tac Toe</Button>
+        </Toolbar>
+      </AppBar>
       <Switch>
+      <Route path="/flames">
+        <Flee/>
+        </Route>
         <Route exact path="/movies">
-          <Movies setmovies = {setmovies} movies={movies} />
+          <Movies setmovies={setmovies} movies={movies} />
         </Route>
         <Route exact path="/flims">
-          <Redirect to="/movies"/>
+          <Redirect to="/movies" />
         </Route>
         <Route exact path="/tic-tac-toe">
-        <TicTacToe/>
+          <TicTacToe />
         </Route>
         <Route exact path="/movies/:id">
-          <Movie setmovies = {setmovies} movies={movies} />
+          <Movie setmovies={setmovies} movies={movies} />
         </Route>
         <Route exact path="/">
-          <Home />
+          Happy Browsing😁❤
         </Route>
         <Route path="**">
           <NotFound />

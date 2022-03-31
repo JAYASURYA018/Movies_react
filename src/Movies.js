@@ -25,7 +25,7 @@ function Movies({movies,setmovies}) {
   return (
     <>
     <section>
-      {movies.map(({ name, rating, poster, year },index) => <MovieCard id={index} del={handleDelete} year={year} name={name} img={poster} rating={rating} />)}
+      {movies.map(({ name, rating, poster, year },index) => <MovieCard key={index} id={index} del={handleDelete} year={year} name={name} img={poster} rating={rating} />)}
     </section>
     <div className='add-movie'>
       <h1>Add a movie</h1>
@@ -41,7 +41,7 @@ function Movies({movies,setmovies}) {
           poster: image?image: `https://via.placeholder.com/350x500/000000/FFFFFF/?text=${name?name:"null"}`
         }])
       }}>Add</button><br></br>
-      <Button onClick={()=> history.goBack()} variant="contained" href="#contained-buttons">
+      <Button onClick={()=> history.goBack("hii")} variant="contained">
         <ArrowBackIosNewIcon/>Back
       </Button>
     </div>
