@@ -9,10 +9,26 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Flee from './Flee';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import IconButton from '@mui/material/IconButton';
+import AddMovie from './AddMovie';
+import About from './About';
+import Home from './Home';
 
 function App() {
 
   const history = useHistory();
+
+  const[togglemode,changgeTogglemode] = useState(true);
+
+  const theme = createTheme({
+    palette: {
+      mode: togglemode?"light":"dark",
+    },
+  });
 
   const initialMovies = [
     {
@@ -46,16 +62,27 @@ function App() {
       poster: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTfBsJnWMSk716p9HN_K8eqgNMpoiq2koPWy8pSgHUmj4JbwAd4",
     }
   ]
+
+
+
   const [ movies, setmovies ] = useState(initialMovies)
 
+  // fetch("https://my-json-server.typicode.com/Prithiv11/data/movies")
+  // .then((data)=> data.json())
+  // .then((list)=> setmovies(list));
+  
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <Paper style={{minHeight:"100vh"}}>
       <AppBar className='margin-zero' position="static">
-        <Toolbar className='spacearound'>
+        <Toolbar style={{gap:"5vw"}} className='spacearound'>
           <Button color="inherit" onClick={() => { history.push("/") }}>Home</Button>
           <Button color="inherit" onClick={() => { history.push("/movies") }}>Movies</Button>
+          <Button color="inherit" onClick={() => { history.push("/movies/add") }}>Add movies</Button>
           <Button color="inherit" onClick={() => { history.push("/flames") }}>Flames</Button>
           <Button color="inherit" onClick={() => { history.push("/tic-tac-toe") }}>Tic Tac Toe</Button>
+          <Button color="inherit" onClick={() => { history.push("/about") }}>About</Button>
+          <IconButton style={{marginLeft:"auto"}} color="inherit" aria-label="Go" component="span" onClick={() => { changgeTogglemode(!togglemode) }}>{togglemode?<Brightness4Icon/>:<Brightness7Icon/>}</IconButton>
         </Toolbar>
       </AppBar>
       <Switch>
@@ -65,24 +92,30 @@ function App() {
         <Route exact path="/movies">
           <Movies setmovies={setmovies} movies={movies} />
         </Route>
+        <Route exact path="/movies/add">
+          <AddMovie setmovies={setmovies} movies={movies} />
+        </Route>
         <Route exact path="/flims">
           <Redirect to="/movies" />
         </Route>
         <Route exact path="/tic-tac-toe">
           <TicTacToe />
         </Route>
+        <Route exact path="/about">
+          <About/>
+        </Route>
         <Route exact path="/movies/:id">
           <Movie setmovies={setmovies} movies={movies} />
         </Route>
         <Route exact path="/">
-          Happy Browsing😁❤
+         <Home/>
         </Route>
         <Route path="**">
           <NotFound />
         </Route>
       </Switch>
-
-    </>
+      </Paper>
+      </ThemeProvider>
   );
 }
 

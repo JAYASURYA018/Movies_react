@@ -6,10 +6,6 @@ function Movie({ movies }) {
     console.log(id);
     const { name, poster, year, rating } = movies[ id ]
     return (
-        // <section>
-        //     <div><h1>{movies[id].name}</h1></div>
-        //     <div><img src={movies[id].poster}></img></div>
-        // </section>
         <section className='center'>
             <div className="card">
                 <img className="poster" src={poster} alt="Movie poster"></img>
