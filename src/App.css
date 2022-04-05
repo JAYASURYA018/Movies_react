@@ -8,11 +8,11 @@ section{
   height: 500px;
   width: 350px;
 }
-body{
-  background-color: whitesmoke;
-}
 .width50{
-  width: 60vw;
+  width: 40vw;
+}
+.error{
+  color: red;
 }
 .card{
   width: 350px;
