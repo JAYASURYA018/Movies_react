@@ -41,16 +41,7 @@ function AddMovie() {
     }
 
   });
-
-
   const history = useHistory();
-  // const [name, setName] = useState("");
-  // const [releaseYear, setReleaseYear] = useState("");
-  // const [rating, setRating] = useState("");
-  // const [image, setImage] = useState("");
-
-
-
   return (
     <form onSubmit={formik.handleSubmit} className="add-movie width50">
       <h1 style={{ fontFamily: "sans-serif" }}>Add a movie</h1>
@@ -62,13 +53,9 @@ function AddMovie() {
       onBlur={formik.handleBlur}
       id="name"
       name="name"
-        // onChange={(event) => {
-        //   setName(event.target.value);
-        // }}
         label="Movie Name"
         variant="outlined"
       />
-      {/* {formik.touched.name ? <span className="error">{formik.errors.name}</span> : ""} */}
       <TextField
       error={formik.touched.poster?formik.errors.poster:""}
       helperText={formik.touched.poster?formik.errors.poster:""}
@@ -77,13 +64,9 @@ function AddMovie() {
       onBlur={formik.handleBlur}
       id="poster"
       name="poster"
-        // onChange={(event) => {
-        //   setImage(event.target.value);
-        // }}
         label="Image address"
         variant="outlined"
       />
-      {/* {formik.touched.poster ? <span className="error">{formik.errors.poster}</span> : ""} */}
       <TextField
       error={formik.touched.rating ?formik.errors.rating : ""}
       helperText={formik.touched.rating ?formik.errors.rating : ""}
@@ -92,13 +75,9 @@ function AddMovie() {
       onBlur={formik.handleBlur}
       id="rating"
       name="rating"
-        // onChange={(event) => {
-        //   setRating(event.target.value);
-        // }}
         label="Rating"
         variant="outlined"
       />
-      {/* {formik.touched.rating ? <span className="error">{formik.errors.rating}</span> : ""} */}
       <TextField
       error={formik.touched.year ? formik.errors.year: ""}
       helperText={formik.touched.year ? formik.errors.year: ""}
@@ -107,38 +86,18 @@ function AddMovie() {
       onBlur={formik.handleBlur}
       id="year"
       name="year"
-        // onChange={(event) => {
-        //   setReleaseYear(event.target.value);
-        // }}
+
         label="Release year"
         variant="outlined"
       />
-      {/* {formik.touched.year ? <span className="error">{formik.errors.year}</span> : ""} */}
       <div className="row">
         <Button
           type="submit"
             variant="contained"
-
-            // onClick={() => {
-            //   const newMovie = {
-            //     name: name ? name : "null",
-            //     rating: rating ? rating : "null",
-            //     year: releaseYear ? releaseYear : "null",
-            //     poster: image
-            //       ? image
-            //       : `https://via.placeholder.com/350x500/000000/FFFFFF/?text=${
-            //           name ? name : "null"
-            //         }`
-
-                    
-            //   };
-
-            //   postDAta(newMovie)
-            // }}
-          >
+            >
             Add
           </Button>
-        <Button onClick={() => history.goBack("hii")} variant="contained">
+        <Button onClick={() => history.goBack()} variant="contained">
           <ArrowBackIosNewIcon />
           Back
         </Button>
