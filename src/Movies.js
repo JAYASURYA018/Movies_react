@@ -6,11 +6,13 @@ import InfoIcon from "@mui/icons-material/Info";
 import { useHistory } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from '@mui/icons-material/Edit';
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 function Movies() {
   const history = useHistory();
 
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(null);
   
   const getMovies = ()=>{
     fetch("https://62275cf9d1b3ff08c1ad87c9.mockapi.io/prithiv/movies")
@@ -30,7 +32,7 @@ function Movies() {
   
   return (
     <>
-      <section>
+      {movies?<section>
         {movies.map(({ id, name, rating, poster, year }, index) => (
           <div key={id} className="card">
             <img className="poster" src={poster} alt="Movie poster"></img>
@@ -73,7 +75,13 @@ function Movies() {
             </h2>
           </div>
         ))}
-      </section>
+      </section>:
+      <div className="center">
+          <Box sx={{ display: "flex" }}>
+            <CircularProgress />
+          </Box>
+        </div>
+      }
     </>
   );
 }
