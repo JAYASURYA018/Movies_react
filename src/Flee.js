@@ -80,13 +80,3 @@ function Ques({ setUnmai, setAns }) {
         </>
     )
 }
-
-// yn!=null&&pn!=null?setlove(true):""   "unmaiya sonna feel pannuva..poiyae soldren"
-
-
-
-
-{/* <Button onClick={() => {
-                return <><h1 style={{ color: "crimson", marginTop: "-3px", fontFamily: "sans-serif" }}>LOVE</h1>
-                    <Confetti width={width} height={height} /></>
-            }} variant="text">Unmaiya soltuma ?</Button> */}

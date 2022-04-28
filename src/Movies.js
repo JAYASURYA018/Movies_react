@@ -1,52 +1,89 @@
-import React from 'react'
-import { useState } from 'react';
-import './App.css';
-import MovieCard from './MovieCard';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Button } from '@mui/material';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import "./App.css";
+import DeleteIcon from "@mui/icons-material/Delete";
+import InfoIcon from "@mui/icons-material/Info";
+import { useHistory } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from '@mui/icons-material/Edit';
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
-function Movies({movies,setmovies}) {
-    
+function Movies() {
   const history = useHistory();
-  const [ name, setName ] = useState("")
-  const [ releaseYear, setReleaseYear ] = useState("")
-  const [ rating, setRating ] = useState("")
-  const [ image, setImage ] = useState("")
+
+  const [movies, setMovies] = useState(null);
   
-
-  const handleDelete = (index)=>{
-    const moviesMod = [...movies];
-    moviesMod.splice(index,1);
-    setmovies(moviesMod);
-
+  const getMovies = ()=>{
+    fetch("https://62275cf9d1b3ff08c1ad87c9.mockapi.io/prithiv/movies")
+      .then((data) => data.json())
+      .then((list) => setMovies(list));
   }
+  
+  useEffect(() => {
+    getMovies();
+  }, []);
+
+  const handleDelete = (id) => {
+    fetch(`https://62275cf9d1b3ff08c1ad87c9.mockapi.io/prithiv/movies/${id}`,{
+      method:"DELETE",
+    }).then(()=>getMovies());
+  };
+  
   return (
     <>
-    <section>
-      {movies.map(({ name, rating, poster, year },index) => <MovieCard key={index} id={index} del={handleDelete} year={year} name={name} img={poster} rating={rating} />)}
-    </section>
-    <div className='add-movie'>
-      <h1>Add a movie</h1>
-      <span>Enter Movie Name : </span><input onChange={(event) => { setName(event.target.value) }} placeholder='Movie name'></input>
-      <span> Enter Movie's image address : </span><input onChange={(event) => { setImage(event.target.value) }} placeholder='Image address'></input>
-      <span>Enter Movie Rating : </span><input onChange={(event) => { setRating(event.target.value) }} placeholder='Rating'></input>
-      <span>Enter Movie Released year : </span><input onChange={(event) => { setReleaseYear(event.target.value) }} placeholder='Release year'></input>
-      <button onClick={() => {
-        setmovies([...movies,{
-          name: name?name:"null",
-          rating: rating?rating:"null",
-          year: releaseYear?releaseYear:"null",
-          poster: image?image: `https://via.placeholder.com/350x500/000000/FFFFFF/?text=${name?name:"null"}`
-        }])
-      }}>Add</button><br></br>
-      <Button onClick={()=> history.goBack("hii")} variant="contained">
-        <ArrowBackIosNewIcon/>Back
-      </Button>
-    </div>
-  </>
-  )
+      {movies?<section>
+        {movies.map(({ id, name, rating, poster, year }, index) => (
+          <div key={id} className="card">
+            <img className="poster" src={poster} alt="Movie poster"></img>
+            <h1>
+              {name}
+              <IconButton
+                style={{ marginLeft: "auto" }}
+                color="error"
+                aria-label="delete"
+                component="span"
+                onClick={() => handleDelete(id)}
+              >
+                <DeleteIcon/>
+              </IconButton>
+
+              <IconButton
+                style={{ marginLeft: "auto" }}
+                color="primary"
+                aria-label="edit"
+                component="span"
+                onClick={() => history.push(`/movies/edit/${id}`)} >
+                <EditIcon/>
+              </IconButton>
+            </h1>
+            <h2>
+              Released year : {year}
+              <InfoIcon
+                onClick={() => {
+                  history.push(`/movies/${id}`);
+                }}
+              />
+            </h2>
+            <h2>
+              Rating :{" "}
+              {rating > 5 ? (
+                <span style={{ color: "green" }}>{rating}</span>
+              ) : (
+                <span style={{ color: "red" }}>{rating}</span>
+              )}{" "}
+            </h2>
+          </div>
+        ))}
+      </section>:
+      <div className="center">
+          <Box sx={{ display: "flex" }}>
+            <CircularProgress />
+          </Box>
+        </div>
+      }
+    </>
+  );
 }
 
-export default Movies
+export default Movies;
